@@ -69,6 +69,10 @@ def send():
         return jsonify({"status": "Message sent successfully", "data": message_data}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/actuator/health', methods=['GET'])
+def health_check():
+    return "OK", 200
 
 # --- 메인 실행 ---
 if __name__ == '__main__':
