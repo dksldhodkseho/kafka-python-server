@@ -1,4 +1,4 @@
-# app.py
+import os
 from flask import Flask, request, jsonify
 from kafka import KafkaProducer, KafkaConsumer
 import json
@@ -6,9 +6,16 @@ import threading
 import time
 
 # --- 설정 ---
-KAFKA_BROKER = 'localhost:29092'  # Docker 외부에서 접속하므로 localhost:29092 사용
+KAFKA_BROKER = 'localhost:9092'
 PRODUCER_TOPIC = 'flask-topic'
 CONSUMER_TOPIC = 'flask-topic'
+MODE = os.environ.get("MODE", "development")
+
+if MODE == "docker":
+    KAFKA_BROKER = 'kafka:9092'  # Docker Compose 에서 Kafka 서비스 이름 사용
+elif MODE == "kubernetes":
+    KAFKA_BROKER = 'kafka-svc:9092'
+
 
 # --- Flask 앱 생성 ---
 app = Flask(__name__)
@@ -70,4 +77,4 @@ if __name__ == '__main__':
     consumer_thread.start()
     
     # Flask 서버 실행
-    app.run(host='localhost', port=8091, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=(MODE != "kubernetes"))
