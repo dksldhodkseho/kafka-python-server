@@ -4,6 +4,7 @@ kafka 연결을 위한 python 보일러 플레이트 저장소 입니다.
 # Initialize Setting
 - Python 버전: v3.10.12
 - venv 사용
+- fastapi 서버 사용
 
 ```sh
 python3 -m venv venv
@@ -24,6 +25,11 @@ bash ./scripts/docker-run.sh <DOCKER HUB ID> <SERVICE NAME> <SERVICE PORT: 옵�
 ```
 - 위 명령어 사용시 `docker 빌드 -> docker push -> docker run` 순서로 진행됩니다.
 - `SERVICE PORT` 는 외부에서 접근 가능한 포트입니다.
+
+```
+uvicorn src.app:app --host 0.0.0.0 --port 5001 --reload
+```
+- 위 명령어 사용시 개발환경에서 동작합니다.
 
 ### 테스트
 
