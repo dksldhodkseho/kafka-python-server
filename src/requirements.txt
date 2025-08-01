@@ -1,0 +1,9 @@
+langchain
+langgraph
+langchain-openai
+python-dotenv
+ipython
+beautifulsoup4
+duckduckgo-search
+langchain-anthropic
+tavily-python 
